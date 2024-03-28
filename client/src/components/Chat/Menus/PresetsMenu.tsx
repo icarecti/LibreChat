@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { BookCopy } from 'lucide-react';
+import { BookCopy, MessageSquarePlus, X } from 'lucide-react';
 import { Content, Portal, Root, Trigger } from '@radix-ui/react-popover';
 import { EditPresetDialog, PresetItems } from './Presets';
 import { useLocalize, usePresets } from '~/hooks';
@@ -21,16 +21,18 @@ const PresetsMenu: FC = () => {
   } = usePresets();
   const { preset } = useChatContext();
 
+  const buttonClassName = cn(
+    'pointer-cursor relative flex flex-col rounded-md border border-gray-100 bg-white text-left focus:outline-none focus:ring-0 focus:ring-offset-0 dark:border-gray-700 dark:bg-gray-800 sm:text-sm',
+    'hover:bg-gray-50 radix-state-open:bg-gray-50 dark:hover:bg-gray-700 dark:radix-state-open:bg-gray-700',
+    'z-50 flex h-[40px] min-w-4 flex-none items-center justify-center px-3 focus:ring-0 focus:ring-offset-0',
+  );
+
   const presets = presetsQuery.data || [];
   return (
     <Root>
       <Trigger asChild>
         <button
-          className={cn(
-            'pointer-cursor relative flex flex-col rounded-md border border-gray-100 bg-white text-left focus:outline-none focus:ring-0 focus:ring-offset-0 dark:border-gray-700 dark:bg-gray-800 sm:text-sm',
-            'hover:bg-gray-50 radix-state-open:bg-gray-50 dark:hover:bg-gray-700 dark:radix-state-open:bg-gray-700',
-            'z-50 flex h-[40px] min-w-4 flex-none items-center justify-center px-3 focus:ring-0 focus:ring-offset-0',
-          )}
+          className={buttonClassName}
           id="presets-button"
           data-testid="presets-button"
           title={localize('com_endpoint_examples')}
@@ -38,6 +40,24 @@ const PresetsMenu: FC = () => {
           <BookCopy className="icon-sm" id="presets-button" />
         </button>
       </Trigger>
+      <div className="ml-auto flex gap-2">
+        <button
+          className={buttonClassName}
+          id="add-button"
+          data-testid="add-button"
+          title={localize('com_add')}
+        >
+          <MessageSquarePlus className="icon-sm" id="add-button" />
+        </button>
+        <button
+          className={buttonClassName}
+          id="close-button"
+          data-testid="add-button"
+          title={localize('com_add')}
+        >
+          <X className="icon-sm" id="add-button" />
+        </button>
+      </div>
       <Portal>
         <div
           style={{
