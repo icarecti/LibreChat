@@ -14,7 +14,13 @@ import Header from './Header';
 import Footer from './Footer';
 import store from '~/store';
 
-function ChatView({ index = 0 }: { index?: number }) {
+interface ChatViewProps {
+  index?: number;
+  incrementViews: () => void;
+  decrementViews: () => void;
+}
+
+function ChatView({ index = 0, incrementViews, decrementViews }: ChatViewProps) {
   const { conversationId } = useParams();
   const submissionAtIndex = useRecoilValue(store.submissionByIndex(0));
   useSSE(submissionAtIndex);
@@ -39,9 +45,14 @@ function ChatView({ index = 0 }: { index?: number }) {
             <Spinner className="opacity-0" />
           </div>
         ) : messagesTree && messagesTree.length !== 0 ? (
-          <MessagesView messagesTree={messagesTree} Header={<Header />} />
+          <MessagesView
+            messagesTree={messagesTree}
+            Header={<Header incrementViews={incrementViews} decrementViews={decrementViews} />}
+          />
         ) : (
-          <Landing Header={<Header />} />
+          <Landing
+            Header={<Header incrementViews={incrementViews} decrementViews={decrementViews} />}
+          />
         )}
         <div className="w-full border-t-0 pl-0 pt-2 dark:border-white/20 md:w-[calc(100%-.5rem)] md:border-t-0 md:border-transparent md:pl-0 md:pt-0 md:dark:border-transparent">
           <ChatForm index={index} />

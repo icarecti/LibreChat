@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   useGetModelsQuery,
@@ -17,6 +17,12 @@ import store from '~/store';
 
 export default function ChatRoute() {
   const index = 0;
+
+  const [numberOfChatViews, setNumberOfChatViews] = useState(1);
+  // Function to increment numberOfChatViews
+  const incrementViews = () => setNumberOfChatViews((prev) => prev + 1);
+  // Function to decrement numberOfChatViews, ensuring it doesn't go below 1
+  const decrementViews = () => setNumberOfChatViews((prev) => Math.max(1, prev - 1));
 
   useConfigOverride();
   const { conversationId } = useParams();
@@ -104,5 +110,19 @@ export default function ChatRoute() {
     return null;
   }
 
-  return <ChatView index={index} />;
+  return (
+    <div
+      className="grid h-full grid-flow-row-dense gap-4"
+      style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(600px, 1fr))' }}
+    >
+      {Array.from({ length: numberOfChatViews }).map(() => (
+        <ChatView
+          key={index}
+          index={index}
+          incrementViews={incrementViews}
+          decrementViews={decrementViews}
+        />
+      ))}
+    </div>
+  );
 }

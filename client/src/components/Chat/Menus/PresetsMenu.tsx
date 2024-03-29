@@ -6,7 +6,12 @@ import { useLocalize, usePresets } from '~/hooks';
 import { useChatContext } from '~/Providers';
 import { cn } from '~/utils';
 
-const PresetsMenu: FC = () => {
+interface PresetsMenuProps {
+  incrementViews: () => void;
+  decrementViews: () => void;
+}
+
+const PresetsMenu: FC<PresetsMenuProps> = ({ incrementViews, decrementViews }) => {
   const localize = useLocalize();
   const {
     presetsQuery,
@@ -46,6 +51,7 @@ const PresetsMenu: FC = () => {
           id="add-button"
           data-testid="add-button"
           title={localize('com_add')}
+          onClick={incrementViews}
         >
           <MessageSquarePlus className="icon-sm" id="add-button" />
         </button>
@@ -54,6 +60,7 @@ const PresetsMenu: FC = () => {
           id="close-button"
           data-testid="add-button"
           title={localize('com_add')}
+          onClick={decrementViews}
         >
           <X className="icon-sm" id="add-button" />
         </button>
