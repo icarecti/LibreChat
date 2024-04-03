@@ -278,6 +278,12 @@
  */
 
 /**
+ * @exports TEndpoint
+ * @typedef {import('librechat-data-provider').TEndpoint} TEndpoint
+ * @memberof typedefs
+ */
+
+/**
  * @exports TEndpointsConfig
  * @typedef {import('librechat-data-provider').TEndpointsConfig} TEndpointsConfig
  * @memberof typedefs
@@ -377,6 +383,18 @@
 /**
  * @exports MongoFile
  * @typedef {import('~/models/schema/fileSchema.js').MongoFile} MongoFile
+ * @memberof typedefs
+ */
+
+/**
+ * @exports uploadImageBuffer
+ * @typedef {import('~/server/services/Files/process').uploadImageBuffer} uploadImageBuffer
+ * @memberof typedefs
+ */
+
+/**
+ * @exports processFileURL
+ * @typedef {import('~/server/services/Files/process').processFileURL} processFileURL
  * @memberof typedefs
  */
 
